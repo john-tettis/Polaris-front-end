@@ -4,7 +4,8 @@ import AstroView from './AstroView/AstroView'
 import '../App.css';
 import NavBar from './NavBar'
 import SignUp from './SignUp'
-import LogIn from './Login' 
+import LogIn from './Login'
+import Landing from './Landing/Landing' 
 
 
 //create user context
@@ -17,7 +18,8 @@ function App() {
     <UserContext.Provider value={[user,setUser]}>
       <BrowserRouter>
         <NavBar/>
-        <Routes>
+        <Routes>          
+          <Route exact path='/' element={<Landing/>}/>
           <Route exact path='/signup' element={<SignUp/>}></Route>
           <Route exact path='/login' element={<LogIn/>}></Route>
           <Route exact path='/astro-view' element={<AstroView/>}>
