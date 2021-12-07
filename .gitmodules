@@ -1,0 +1,3 @@
+[submodule "d3-celestial"]
+	path = d3-celestial
+	url = git@github.com:john-tettis/d3-celestial.git
