@@ -124,6 +124,7 @@ export default class API{
             }
             catch(e){
                 console.error(e)
+                return {error:e}
             }
         },
         login: async function(formData){
@@ -133,6 +134,8 @@ export default class API{
             }
             catch(e){
                 console.error(e)
+                return {error:e}
+
             }
         }
     }

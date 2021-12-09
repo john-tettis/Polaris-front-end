@@ -16,6 +16,6 @@ export default function MoonOverlay({data}){
         loadDataFromApi()
     },[data])
 
-    return <div id="ex1">
+    return <div id="moon-overlay">
             </div>
 }

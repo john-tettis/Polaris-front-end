@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import {getDate} from '../../Helpers/time.js'
 import API from '../../API'
 import Loading from '../../Images/Loading.svg'
-import arrow from '../../Images/left-arrow.svg'
+import Icon from '../../Images/sun-and-moon.svg'
 
 let starMap ={
     "paint":true,
@@ -26,11 +26,12 @@ let starMap ={
 }
 //return necessary html to construct a sky map based off of
 //
-export default function SkyMap({data,setShow}){
+export default function SkyMap({data,setShow,children}){
     // const [mapData,setMapData] = useState(starmap)
     const [Image,setImage] = useState(Loading)
     
     useEffect(()=>{
+        if(!data)return
         // console.log(mapData)
         const getSkyMap= async()=>{
             starMap.geo.location={
@@ -49,11 +50,11 @@ export default function SkyMap({data,setShow}){
     }
     return(
         <>
-            <div id="celestial-map">
+            <div id="celestial-map">s
                 <img alt='star map 'id='map' src={Image}/>
                 <img alt='widget menu button'
-                    src="https://img.icons8.com/ios-glyphs/60/000000/circled-right.png"
-                    className='widget-launcher'
+                    src={Icon}
+                    className='widget-launcher slide-in-left'
                     onClick={toggleOffCanvas}/>
             </div>
         </>

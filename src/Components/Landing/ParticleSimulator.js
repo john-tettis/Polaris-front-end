@@ -209,6 +209,59 @@ export class Bomb{
     }
 }
 
+export class CallToAction{
+    constructor(x,y, radius,color){
+        this.x=x;
+        this.y=y;
+        this.radius=radius;
+        this.color=color;
+        this.size=1;
+        this.increment=.2;
+    }
+    update(canvas,ctx){
+        // if(this.isMouseOver()){
+        //     console.log('mouseOver')
+        //     this.size+=Math.abs(this.increment*2)
+        //     this.size= Math.min(this.radius,this.size)
+        //     this.draw(ctx);
+
+        // }
+        // else{
+            const hover = this.isMouseOver()
+            const radius = hover ? this.radius*3:this.radius
+            const increment = hover ? this.increment*3:this.increment
+            this.size+= increment;
+            this.size= Math.max(.1, this.size)
+            if(this.size>= radius || this.size<=1) this.increment=-this.increment;
+            this.draw(ctx);
+            this.draw(ctx,Math.max(1,radius-this.size));
+        // }
+    }
+    draw(ctx,size=this.size){
+        ctx.beginPath();
+        ctx.strokeStyle=`hsla(${this.color},100%,80%,.7)`;
+        ctx.lineWidth=2;
+        ctx.arc(this.x,this.y, size, 0, Math.PI *2)
+        // ctx.arc(this.x,this.y, this.size/3, 0, Math.PI *2)
+        ctx.stroke();
+    }
+    isMouseOver(){
+        let dx = mouse.x-this.x;
+        let dy = mouse.y-this.y;
+        let distance = Math.sqrt(dx*dx+dy*dy);
+        return distance<= this.radius;
+    }
+    activate(ctx){
+        this.increment= Math.abs(this.increment*2)
+        this.update=()=>{
+            this.size+= this.increment;
+            if(this.size> this.radius*2)this.increment=-this.increment;
+            if(this.size<=1)particles.push(new Bomb({x:this.x,y:this.y, now:true}))
+            this.draw(ctx)
+        }
+    }
+
+}
 
 // canvas.addEventListener('mousedown',(e)=>{
 //     return 
@@ -257,7 +310,7 @@ function updateCanvas(canvas,ctx){
     // ctx.fillStyle='rgba(0,0,0,225)';
     
     //if formData.trails,change fillstyle slowly cover previous particle drawings, creating trail effect
-    ctx.fillStyle = "rgba(0, 0, 0, 0.1)";
+    ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
     //otherwise clear the entire canvas
     // else ctx.clearRect(0,0,canvas.width,canvas.height);
     ctx.rect(0,0,canvas.width,canvas.height);

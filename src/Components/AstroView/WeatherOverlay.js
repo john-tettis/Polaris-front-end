@@ -16,9 +16,13 @@ export default function WeatherOverlay({weather}){
     //     fetchWeather()
     // },[])
     if(!weather) return <Loading/>
-    return <div className='widget'>
-        {weather.map(hour=>{
-                return <HourDisplay data={hour}/>
-            })}
+    return <div className='widget weather'>
+        <p className='weather-text'>Tonight's Forecast</p>
+        <div className='weather-container'>
+
+            {weather.map(hour=>{
+                    return <HourDisplay data={hour}/>
+                })}
+        </div>
     </div>
 }

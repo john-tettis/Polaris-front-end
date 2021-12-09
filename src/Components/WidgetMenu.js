@@ -9,7 +9,7 @@ export default function WidgetMenu({show,setShow,data,children}) {
     return (
       <>
   
-        <Offcanvas show={show} onHide={handleClose}>
+        <Offcanvas className='widget-menu' show={show} backdrop={false}onHide={handleClose}>
           <Offcanvas.Header closeButton>
             <Offcanvas.Title>
               <h2>Astro-Report</h2> 

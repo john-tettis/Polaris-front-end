@@ -38,15 +38,16 @@ export default function LocationOverlay({data}){
         })
     }
     let inputRef = useRef()
-    return <div class='widget location-overlay'>
-        <input id="autocomplete"
-            className="input-field"
-            ref={inputRef}
-            type="text"
-        />
+    return <form class='widget location-overlay'>
+        <div className='form-group'>
+            <input id="autocomplete"
+                className="form-control"
+                ref={inputRef}
+                type="text"
+            />
+        </div>
+        
             { data && <p>({data.name}, {data.region})</p>}
-                
-            <Link to='/set-location'>Not your location?</Link>
 
-            </div>
+            </form>
 }

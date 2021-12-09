@@ -14,12 +14,14 @@ export const UserContext = React.createContext([]);
 
 function App() {
   const[user,setUser] = useState(null)
+  const [showNav,setShowNav] = useState(true)
+
   return (
     <UserContext.Provider value={[user,setUser]}>
       <BrowserRouter>
-        <NavBar/>
+        <NavBar show={showNav}/>
         <Routes>          
-          <Route exact path='/' element={<Landing/>}/>
+          <Route  exact path='/' element={<Landing setNav={setShowNav} />}/>
           <Route exact path='/signup' element={<SignUp/>}></Route>
           <Route exact path='/login' element={<LogIn/>}></Route>
           <Route exact path='/astro-view' element={<AstroView/>}>

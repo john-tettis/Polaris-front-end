@@ -2,7 +2,7 @@ import React, {useState, useContext} from 'react';
 import { useNavigate } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import API from '../API.js'
-import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import { Button, Form, FormGroup, Label, Input, FormFeedback} from 'reactstrap';
 import {UserContext} from './App.js'
 
 
@@ -51,6 +51,7 @@ export default function Login(){
                     <Label for="password">Password</Label>
                     <Input type="password" name="password" id="password" placeholder="ConstellationLover225" value={formData.password}onChange={handleChange} />
                 </FormGroup>
+                <FormFeedback>{}</FormFeedback>
                 <Button color="primary">Log In</Button>
             </Form>
 

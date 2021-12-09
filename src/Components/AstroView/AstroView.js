@@ -26,8 +26,14 @@ export default function AstroView(){
         }
         loadDataFromApi()
     },[])
-    //if API hasnt responded, lreturn loading screen
-    if(!astro)return <Loading/>
+    //if API hasnt responded, return just the skymap to render loading screen
+    if(!astro)return (
+                        <>
+                            <SkyMap setShow={setShow} data={null}>
+                            </SkyMap>
+                            <Loading text='Loading stars for your location'/>
+                        </>
+                        )
     const moonData={
         rise:astro.astro.moonrise,
         set:astro.astro.moonset
@@ -38,7 +44,7 @@ export default function AstroView(){
     }
     return (
         <>
-            <SkyMap setShow={setShow} data={astro.astro.location}>
+            <SkyMap setShow={setShow} data={astro.astro.location||null}>
             </SkyMap>
             <WidgetMenu  show={show} setShow={setShow}>
                 <LocationOverlay data={astro.astro.location}/>
