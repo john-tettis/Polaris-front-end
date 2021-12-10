@@ -21,7 +21,7 @@ export default function WeatherOverlay({weather}){
         <div className='weather-container'>
 
             {weather.map(hour=>{
-                    return <HourDisplay data={hour}/>
+                    return <HourDisplay key={hour} data={hour}/>
                 })}
         </div>
     </div>

@@ -134,9 +134,36 @@ export default class API{
             }
             catch(e){
                 console.error(e)
-                return {error:e}
 
             }
+        }
+    }
+
+
+    static async getAutoComplete(text){
+        try{
+            if(!text) return []
+            const config = {
+                method: 'get',
+                url: `https://api.geoapify.com/v1/geocode/autocomplete?text=${text}&apiKey=b4cbb7dffc5647d0b54a7176adaf94ba`,
+                headers: { }
+                };
+        
+            const {data} = await axios(config);
+            console.log(data)
+            return data.features.map(object=>({
+                key: object.properties.name || `${object.properties.city}, ${object.properties.country}`,
+                label:object.properties.name || `${object.properties.city}, ${object.properties.country}`,
+                location: object.geometry.coordinates
+            }))
+            
+                        
+
+        }
+        catch(e){
+            console.log(e)
+            return e
+
         }
     }
 }

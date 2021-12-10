@@ -9,7 +9,10 @@ export default function SunOverlay({data}){
     console.log({data})
     return <div className='widget'>
                 <img src={sun}style={{width:'150px'}}></img>
-                <div>Rise: <span>{data.rise}</span></div>
-                <div>Set: <span>{data.set}</span></div>
+                <div className='widget-container'>
+                    <div>Rise: <span>{data.rise}</span></div>
+                    <div>Set: <span>{data.set}</span></div>
+                </div>
+                
             </div>
 }

@@ -1,50 +1,37 @@
-import React, {useState,useEffect, useRef} from 'react'
-
-import API from '../../API';
-import {Link} from 'react-router-dom'
-import PlacesAutocomplete, {
-    geocodeByAddress,
-    geocodeByPlaceId,
-    getLatLng,
-  } from 'react-places-autocomplete';
-  const google = window.google
-
-//uses consttructor function to create and insert into element.
-//Ideally this should be more reacty- but this is how the code was designed,
-//and it works.priorities.
+import React, {useState} from 'react'
+import API from '../../API'
+import DataListInput from "react-datalist-input";
+///location input and display. Autocomplete was a pain in the ass. google will not be straight up about its pricing.
 export default function LocationOverlay({data}){
     const [location,setLocation] = useState({address:`${data.name},${data.region}`})
-    let autocomplete=null;
+    const [input,setInput] = useState('')
+    const [auto,setAuto] = useState([])
     
-    useEffect(()=>{
-        autocomplete = new google.maps.places.Autocomplete(document.getElementById('autocomplete'), {})
-        autocomplete.addListener("place_changed", handlePlaceSelect)
-    })
-
-    const handleChange = address => {
-        setLocation({ address });
-      };
-     
-    const handlePlaceSelect=()=> {
-        let addressObject = autocomplete.getPlace()
-        let address = addressObject.address_components
-        setLocation({
-            name: addressObject.name,
-            street_address: `${location.address[0].long_name} ${address[1].long_name}`,
-            city: location.address[4].long_name,
-            state: location.address[6].short_name,
-            zip_code: location.address[8].short_name,
-            googleMapLink: location.addressObject.url
-        })
+    const getAutoComplete= async(val)=>{
+        let results = await API.getAutoComplete(val);
+        console.log(results)
+        if(!results) return
+        setAuto(results)
     }
-    let inputRef = useRef()
+    const handleChange = val => {
+        console.log(val)
+        setInput(val);
+        getAutoComplete(val);
+    }
+    const onSelect = (val)=> console.log(val);
     return <form class='widget location-overlay'>
         <div className='form-group'>
-            <input id="autocomplete"
-                className="form-control"
-                ref={inputRef}
-                type="text"
-            />
+            <DataListInput
+            dropdownClassName='z-5'
+            // inputClassName="form-control"
+                placeholder="Your location..."
+                items={auto}
+                value={input}
+                onSelect={onSelect}
+                onInput={handleChange}
+                />
+            
+
         </div>
         
             { data && <p>({data.name}, {data.region})</p>}
