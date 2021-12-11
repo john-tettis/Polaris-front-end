@@ -120,10 +120,12 @@ h1, h2, h3 {
 }
 
 .title-card {
-  font-size: 2rem;
-  max-width: 30ch;
+  font-size: 3rem;
+  font-weight: 500;
+  color: #999;
+  max-width: 20ch;
   display: block;
-  margin: auto;
+  margin: 6rem auto;
   padding-left: 5rem;
 }
 
@@ -162,14 +164,6 @@ h1, h2, h3 {
   overflow: hidden;
   -o-object-position: 60% 20%;
      object-position: 60% 20%;
-}
-
-#celestial-map #map::before {
-  content: 'N';
-  color: red;
-  position: relative;
-  top: -10px;
-  left: 50%;
 }
 
 .celestial-container {
