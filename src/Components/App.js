@@ -6,11 +6,10 @@ import NavBar from './NavBar'
 import SignUp from './SignUp'
 import LogIn from './Login'
 import Landing from './Landing/Landing' 
+import UserContext from '../Context'
 
 
-//create user context
 
-export const UserContext = React.createContext([]);
 
 function App() {
   const[user,setUser] = useState(null)

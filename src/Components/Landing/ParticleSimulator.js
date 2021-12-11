@@ -310,7 +310,7 @@ function updateCanvas(canvas,ctx){
     // ctx.fillStyle='rgba(0,0,0,225)';
     
     //if formData.trails,change fillstyle slowly cover previous particle drawings, creating trail effect
-    ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+    ctx.fillStyle = "rgba(0, 0, 0, 0.2)";
     //otherwise clear the entire canvas
     // else ctx.clearRect(0,0,canvas.width,canvas.height);
     ctx.rect(0,0,canvas.width,canvas.height);
@@ -318,9 +318,13 @@ function updateCanvas(canvas,ctx){
 }
 
 //animate function, recursively calls indefinetely
+export const pause ={
+    pause:false
+}
 export function animate(canvas,ctx){
     updateCanvas(canvas,ctx);
     updateAllParticles(canvas,ctx);
+    if(pause.pause) return
     window.requestAnimationFrame(()=>animate(canvas,ctx));
 
 }

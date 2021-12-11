@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import App from './Components/App';
 
-window.onload= ()=>{ReactDOM.render(
+window.onload= ()=>{
+  ReactDOM.render(
   <React.StrictMode>
     <App />
   </React.StrictMode>,

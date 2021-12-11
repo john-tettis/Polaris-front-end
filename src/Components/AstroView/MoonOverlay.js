@@ -1,4 +1,5 @@
 import React, {useEffect} from 'react'
+import Loading from '../Loading'
 
 import API from '../../API';
 
@@ -10,12 +11,13 @@ export default function MoonOverlay({data}){
     useEffect(()=>{
         //get api data for astrological view
         async function loadDataFromApi(){
-             await API.loadMoonData(data);
+            await API.loadMoonData(data);
 
         }
         loadDataFromApi()
     },[data])
-
-    return <div id="moon-overlay">
+    
+    if(!data) return <Loading/>
+    return <div className='widget' id="moon-overlay">
             </div>
 }

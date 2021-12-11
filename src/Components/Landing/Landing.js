@@ -1,7 +1,7 @@
 import React, {useEffect, useState, useRef} from 'react'
 import {Link} from 'react-router-dom'
 import Overlay from './Overlay'
-import {animate, particles, CallToAction, mouse, Bomb} from './ParticleSimulator.js'
+import {animate, particles, CallToAction, mouse, Bomb, pause} from './ParticleSimulator.js'
 
 
 
@@ -9,12 +9,12 @@ import {animate, particles, CallToAction, mouse, Bomb} from './ParticleSimulator
 //landing page with interactive canvas
 
 export default function Landing({setNav}){  
-    const [canvas,setCanvas] = useState(null)
-    const [button,setButton] = useState(null)
-    const [click,setClick] = useState(false)
+    const [canvas,setCanvas] = useState(null);
+    const [button,setButton] = useState(null);
+    const [click,setClick] = useState(false);
     useEffect(()=>{
         setNav(false)
-        if(!canvas) return
+        if(!canvas ||click) return
         animate(canvas, canvas.getContext('2d'))
         const button = new CallToAction(canvas.width/3*2,canvas.height/2,10,70);
         setButton(button)
@@ -50,7 +50,11 @@ const CanvasDisplay = React.memo(({setCanvas, setClick,setNav, button})=>{
     function addParticles(e){
         //check if call to action was pressed
         if(!button.isMouseOver())return
-        setTimeout(()=>setNav(true),2000);
+        setTimeout(()=>{
+            setNav(true);
+            pause.pause=true
+        },4000);
+
         setClick(true);
         particles.length=0;
         particles.push(new Bomb({x:e.clientX,y:e.clientY-60, now:true}))

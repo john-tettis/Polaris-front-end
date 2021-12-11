@@ -5,13 +5,15 @@ import {Offcanvas} from 'react-bootstrap'
 export default function WidgetMenu({show,setShow,data,children}) {
   
     const handleClose = () => setShow(false);
-    // document.getElementsByClassName('btn close')[0].onClick = ()=> handleClose()
-  
+    const handleOpen = () => setShow(true);
+    const button = show ? <button className='btn-close' onClick={handleClose}></button>:<button className='btn' onClick={handleOpen}>Launch Report</button>
     return (
       <>
   
-        <div className={`widget-menu off-canvas off-canvas-left ${show ? 'show':''}`} onHide={handleClose}>
-          <Offcanvas.Header closeButton>
+        <div className={`off-canvas off-canvas-left ${show ? 'show':''}`} >
+          <div className='mobile-launcher'> {button}</div>
+          <Offcanvas.Header  onHide={handleClose}>
+            
             <Offcanvas.Title>
               <h2>Astro-Report</h2> 
               </Offcanvas.Title>

@@ -50,11 +50,12 @@ export default function SkyMap({data,setShow,children}){
     }
     return(
         <>
-            <div id="celestial-map">s
+            <div id="celestial-map">
+                {children}
                 <img alt='star map 'id='map' src={Image}/>
                 <img alt='widget menu button'
                     src={Icon}
-                    className='widget-launcher slide-in-left'
+                    className='off-canvas-launcher slide-in-left'
                     onClick={toggleOffCanvas}/>
             </div>
         </>

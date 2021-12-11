@@ -27,20 +27,26 @@ export default class API{
         }
         function configure(moon){    
             var day = new Date().getDate()
-            var html = "<div>"
+            var html = 
             //this part included the dat. Since my app will include it elsewhere, there is no need
             //  +
             // "<b>" + moon.nameDay[dayWeek]+ "</b>" +
             // "<div>" + day + " <b>" + moon.monthName + "</b> " +
             // moon.year + "</div>"
-             +
-            "<div shadow>" + moon.phase[day].svg + "</div>" +
-            "<div>" + moon.phase[day].phaseName + " " +
+            `<div class= 'widget-container'>`+
+            // `<p class='widget-text'>Lunar Data:</p>`+
+            "<div shadow>" + moon.phase[day].svg + 
+            "<div >" + moon.phase[day].phaseName + " " +
             "" + ((moon.phase[day].isPhaseLimit )? ""  :   Math.round(moon.phase[day].lighting) + "%") +
             "</div>" +
+            
+            "</div>" +
+            "</div>" +
+            
+            "<div class='widget-container'>" +
             `<div>Rise:<span>${moonRiseSet.rise}</span></div>`+
-            `<div>Set:<span>${moonRiseSet.set}</span></div>`+
-            "</div>";
+            `<div>Set:<span>${moonRiseSet.set}</span></div>`
+            + "</div>";
             let moonOverlay = document.getElementById("moon-overlay");
            if(moonOverlay)moonOverlay.innerHTML = html;
         }   
@@ -77,19 +83,6 @@ export default class API{
 
 
     }
-    //use users IP address to get rise and set times for sun and moon
-    static async getRiseSetTimes(data){
-        try {
-            if(data){
-                return
-            }
-            const {ip} = await this.getLocationData()
-            const astroResult = await axios.get(`https://api.ipgeolocation.io/astronomy?apiKey=${this.IPGeoKey}&ip=${ip}`)
-            return astroResult
-        } catch (error) {
-            console.error(error)
-        }
-    }
     //generates star map based on users long/latitude passed through data
     static async getStarMap(data) {
         try{
@@ -101,14 +94,25 @@ export default class API{
         }
     }
     //returns object containing weather for users location
-    static async getAstroData(){
+    static async getAstroData(location){
         try {
             const API_KEY = '2f5bd61df84d497fa26202402210312'
-            const {ip} = await this.getLocationData()
-            let result = await axios.get(`http://api.weatherapi.com/v1/forecast.json?q=${ip}&key=${API_KEY}`)
-            console.log(result)
-            let value =result.data.forecast.forecastday[0];
-            value.astro.location= result.data.location
+            let data;
+            console.log({location})
+            if(!location){
+                const {ip} = await this.getLocationData()
+                let res = await axios.get(`http://api.weatherapi.com/v1/forecast.json?q=${ip}&key=${API_KEY}&days=2`)
+                data= res.data
+                
+            }
+            else{
+                let res = await axios.get(`http://api.weatherapi.com/v1/forecast.json?q=${`${location[1]},${location[0]}`}&key=${API_KEY}&days=2`)
+                data= res.data
+                
+            }
+            let value =data.forecast.forecastday[0];
+            value.astro.location=data.location
+            value.hour.push(...data.forecast.forecastday[1].hour)
             return value
             
         } catch (error) {
@@ -152,8 +156,8 @@ export default class API{
             const {data} = await axios(config);
             console.log(data)
             return data.features.map(object=>({
-                key: object.properties.name || `${object.properties.city}, ${object.properties.country}`,
-                label:object.properties.name || `${object.properties.city}, ${object.properties.country}`,
+                key: object.properties.name || `${object.properties.city}, ${object.properties.state}`,
+                label:object.properties.name || `${object.properties.city}, ${object.properties.state}`,
                 location: object.geometry.coordinates
             }))
             

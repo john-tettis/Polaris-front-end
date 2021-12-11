@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import API from '../API.js'
 import { Button, Form, FormGroup, Label, Input, FormFeedback} from 'reactstrap';
-import {UserContext} from './App.js'
+import UserContext from '../Context'
 import validate, {notNull, noSpecialChars} from '../Helpers/Validator'
 
 
