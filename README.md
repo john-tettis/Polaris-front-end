@@ -1,6 +1,6 @@
-# Getting Started with Create React App
+# Getting Started with Polaris
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+You can find the back-end[here](https://github.com/john-tettis/Polaris-back-end).
 
 ## Available Scripts
 
